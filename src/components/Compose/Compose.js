@@ -27,7 +27,6 @@ export default class Compose extends Component {
     createPostFn( text );
     this.setState({ text: '' });
   }
-
   render() {
     // Destructuring
     const { text } = this.state;

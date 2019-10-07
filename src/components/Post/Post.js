@@ -60,9 +60,9 @@ export default class Post extends Component {
           <MasterControlIcon onClick={ this.toggleMasterMenu } />
   
           <div className="Post__master-menu" style={ { display: showMasterMenu ? 'flex' : 'none' } }>
-            <span onClick={ this.showEdit }>Edit</span>
-            <span>Delete</span>
-          </div>
+  <span onClick={ this.showEdit }>Edit</span>
+  <span onClick={ () => this.props.deletePostFn( this.props.id ) }>Delete</span> { /* Remember to destructure deletePostFn off of props or use this.props.deletePostFn */ }
+</div>
         </div>
   
         <div className="Post__meta-data">
@@ -77,15 +77,17 @@ export default class Post extends Component {
         </div>
   
         <div className="Post__content">
-          {
-            editing
-            ?
-              <Edit text=""
-                    hideEdit={ this.hideEdit } />
-            :
-              <span className="Post__text">{ text }</span>
-          }
-        </div>
+  {
+    editing
+    ?
+      <Edit text={ text }
+            id={ this.props.id } // Remember to destructure id off of props or use this.props.id
+            hideEdit={ this.hideEdit }
+            updatePostFn={ this.props.updatePostFn } />
+    :
+      <span className="Post__text">{ text }</span>
+  }
+</div>
   
         <div className="Post__user-controls">
           <ReplyIcon className="Post__control-icon" />
@@ -94,7 +96,6 @@ export default class Post extends Component {
         </div>
   
       </section>
-    
     )
   }
 }
